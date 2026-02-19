@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ครัวไทย: รวมสูตรอาหารและขนมหวาน</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600&family=Sarabun:wght@400;600&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    :root {
+      --brand: #ff8c00;
+      --dark: #222;
+      --muted: #666;
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --border: rgba(0, 0, 0, 0.08);
+      --shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      --shadow2: 0 10px 20px rgba(0, 0, 0, 0.10);
+      --radius: 16px;
+      --nav-height: 70px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-padding-top: calc(var(--nav-height) + 20px);
+    }
+
+    body {
+      font-family: 'Sarabun', 'Prompt', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(1200px 500px at 20% 0%, rgba(255, 140, 0, 0.14), transparent 60%),
+        radial-gradient(900px 500px at 90% 10%, rgba(0, 120, 255, 0.10), transparent 55%),
+        var(--bg);
+      color: #333;
+      scroll-behavior: smooth;
+    }
+
+    h1, h2, h3, .btn, nav a {
+      font-family: 'Prompt', sans-serif;
+    }
+
+    header {
+      position: relative;
+      color: white;
+      padding: 46px 18px 34px;
+      text-align: center;
+      overflow: hidden;
+      background: linear-gradient(120deg, #ff8c00, #ffb347 60%, #ff7a00);
+    }
+
+    header::before,
+    header::after {
+      content: "";
+      position: absolute;
+      inset: auto;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      filter: blur(0px);
+      opacity: 0.25;
+      background: radial-gradient(circle, #fff 0%, transparent 60%);
+    }
+
+    header::before {
+      left: -220px;
+      top: -240px;
+    }
+
+    header::after {
+      right: -240px;
+      bottom: -280px;
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: clamp(26px, 4vw, 40px);
+      letter-spacing: 0.2px;
+    }
+
+    header p {
+      margin: 0;
+      opacity: 0.95;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(30, 30, 30, 0.85);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      min-height: var(--nav-height);
+      display: flex;
+      align-items: center;
+    }
+
+    nav .nav-inner {
+      width: 100%;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 10px 14px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      justify-content: space-between;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-weight: 500;
+      font-size: 15px;
+      transition: 0.2s ease;
+      opacity: 0.85;
+    }
+
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.12);
+      opacity: 1;
+    }
+
+    .btn-random {
+      background: #fff;
+      color: var(--brand);
+      border: none;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Prompt', sans-serif;
+      transition: 0.2s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .btn-random:hover {
+      transform: scale(1.05);
+      background: #fff8f0;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 22px auto;
+      padding: 18px;
+      min-height: 80vh;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 14px 0 10px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 24px;
+      color: var(--brand);
+    }
+
+    .sub {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.12), transparent);
+      margin: 14px 0 24px;
+    }
+
+    .recipe-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 20px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+      transition: transform .2s ease, box-shadow .2s ease;
+      margin-bottom: 24px;
+    }
+
+    .recipe-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow2);
+      border-color: rgba(255, 140, 0, 0.3);
+    }
+
+    @media (max-width: 860px) {
+      .recipe-card {
+        grid-template-columns: 1fr;
+      }
+      .recipe-img {
+        height: 200px;
+      }
+    }
+
+    .recipe-img {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      height: 240px;
+      background: #eee;
+    }
+
+    .recipe-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1);
+      transition: transform .5s ease;
+      display: block;
+    }
+
+    .recipe-card:hover .recipe-img img {
+      transform: scale(1.08);
+    }
+
+    .badge {
+      background-color: var(--brand);
+      color: white;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      vertical-align: middle;
+      margin-left: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .recipe-content h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+      line-height: 1.35;
+      color: #1a1a1a;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 8px 0 16px;
+    }
+
+    .chip {
+      font-size: 12px;
+      color: #b56200;
+      background: rgba(255, 140, 0, 0.08);
+      border: 1px solid rgba(255, 140, 0, 0.15);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-weight: 500;
+    }
+
+    .ingredients, .steps {
+      color: #444;
+      line-height: 1.7;
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+
+    .ingredients strong,
+    .steps strong {
+      color: var(--dark);
+      font-weight: 600;
+    }
+
+    .steps ol {
+      margin: 8px 0 0 18px;
+      padding: 0;
+    }
+    
+    .steps li {
+        margin-bottom: 4px;
+    }
+
+    .actions {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      border: 1px solid #ddd;
+      background: #fff;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      color: #555;
+      transition: 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn:hover {
+      background: #f9f9f9;
+      color: var(--brand);
+      border-color: var(--brand);
+      transform: translateY(-1px);
+    }
+
+    footer {
+      margin-top: 40px;
+      padding: 0 0 30px;
+    }
+
+    .references {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+
+    .references ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .references li {
+      padding: 10px 0;
+      border-bottom: 1px dashed rgba(0, 0, 0, 0.12);
+      font-size: 14px;
+      color: #555;
+    }
+
+    .references li:last-child {
+      border-bottom: none;
+    }
+
+    .references a {
+      color: var(--brand);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    
+    .references a:hover {
+        text-decoration: underline;
+    }
+
+    .to-top {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 80;
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+      transition: 0.3s ease;
+    }
+
+    .to-top.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .to-top button {
+      border: none;
+      cursor: pointer;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      background: var(--brand);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .to-top button:hover {
+        transform: scale(1.1);
+        background: #e07b00;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>ครัวไทย: รวมสูตรอาหารและขนมหวาน</h1>
+    <p>เรียนรู้วิธีทำอาหารไทยง่ายๆ ด้วยตัวคุณเอง</p>
+  </header>
+
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-links">
+        <a href="#savory">อาหารคาว</a>
+        <a href="#sweet">อาหารหวาน</a>
+        <a href="#ref">อ้างอิง</a>
+      </div>
+
+      <button class="btn-random" onclick="randomMenu()">
+        🎲 สุ่มเมนูวันนี้
+      </button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="section-title">
+      <h2 id="savory">หมวดอาหารคาว</h2>
+      <div class="sub">เมนูยอดนิยมประจำบ้าน</div>
+    </div>
+    <div class="divider"></div>
+
+    <article class="recipe-card" id="menu1">
+      <div class="recipe-img">
+        <img src="https://img.wongnai.com/p/1920x0/2018/04/29/62beeeb4262644fab1481fdbc6d2f49c.jpg" alt="กุ้งคั่วพริกเกลือ">
+      </div>
+      <div class="recipe-content">
+        <h3>1. กุ้งคั่วพริกเกลือ <span class="badge">ยอดนิยม</span></h3>
+        <div class="meta">
+          <span class="chip">เมนูผัด</span>
+          <span class="chip">ทำไว</span>
+          <span class="chip">กลิ่นหอมกระเทียม</span>
+        </div>
+        <div class="ingredients">
+          <strong>ส่วนผสม:</strong> กุ้ง 400 กรัม, กระเทียมสับ 1/2 ถ้วย, พริกแดงจินดาซอย, ต้นหอมซอย, เกลือ 1/2 ช้อนชา, น้ำตาลทราย 1 ช้อนชา
+        </div>
+        <div class="steps" id="step-1">
+          <strong>วิธีทำ:</strong>
+          <ol>
+            <li>นำกุ้งไปทอดในน้ำมันพอสุก (สะดุ้งน้ำมัน) แล้วตักพักไว้</li>
+            <li>เทน้ำมันออกให้เหลือเล็กน้อย นำกระเทียมสับและพริกแดงลงผัดให้หอมกรอบ</li>
+            <li>ใส่กุ้งที่ทอดไว้กลับลงไป ปรุงรสด้วยเกลือ น้ำตาล พริกไทย</li>
+            <li>โรยต้นหอม ผัดให้เข้ากัน พร้อมเสิร์ฟ</li>
+          </ol>
+        </div>
+        <div class="actions">
+          <button class="btn" onclick="toggleRecipe('step-1')">ดู/ซ่อนวิธีทำ</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="recipe-card" id="menu2">
+      <div class="recipe-img">
+        <img src="https://cdn-ildplgb.nitrocdn.com/IsDIEVbKqjLKLwSjgUBetWWfJLAUdaLp/assets/images/optimized/rev-f28e55d/www.thammculture.com/wp-content/uploads/2024/01/Untitled-612.jpg" alt="กะเพราหมูสับ">
+      </div>
+      <div class="recipe-content">
+        <h3>2. กะเพราหมูสับ <span class="badge">ต้องลอง</span></h3>
+        <div class="meta">
+          <span class="chip">เมนูจานเดียว</span>
+          <span class="chip">เผ็ดร้อน</span>
+          <span class="chip">คลาสสิก</span>
+        </div>
+        <div class="ingredients">
+          <strong>ส่วนผสม:</strong> หมูสับ 300 กรัม, ใบกะเพรา, กระเทียม, พริกแดง, น้ำปลา, ซอสหอยนางรม, น้ำตาล
+        </div>
+        <div class="steps" id="step-2">
+          <strong>วิธีทำ:</strong>
+          <ol>
+            <li>โขลกพริกกับกระเทียมให้พอหยาบ</li>
+            <li>ตั้งกระทะใส่น้ำมัน ผัดเครื่องที่โขลกให้หอมฉุย</li>
+            <li>ใส่หมูสับ ผัดยีให้หมูร่วนสุก ปรุงรสตามชอบ</li>
+            <li>ใส่ใบกะเพรา ผัดเร็วๆ ให้เข้ากันแล้วปิดไฟทันที</li>
+          </ol>
+        </div>
+        <div class="actions">
+          <button class="btn" onclick="toggleRecipe('step-2')">ดู/ซ่อนวิธีทำ</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="recipe-card" id="menu3">
+      <div class="recipe-img">
+        <img src="https://cms.dmpcdn.com/travel/2019/09/16/b91762b0-d858-11e9-a689-ab8b46acb2ae_original.jpg" alt="กะหล่ำปลีผัดน้ำปลา">
+      </div>
+      <div class="recipe-content">
+        <h3>3. กะหล่ำปลีผัดน้ำปลา</h3>
+        <div class="ingredients">
+          <strong>ส่วนผสม:</strong> กะหล่ำปลี 1 หัว, กระเทียมทุบ, น้ำปลาดี 2 ช้อนโต๊ะ, น้ำตาลทรายนิดหน่อย
+        </div>
+        <div class="steps" id="step-3">
+          <strong>วิธีทำ:</strong>
+          <ol>
+            <li>แกะกะหล่ำเป็นใบๆ ล้างให้สะอาด พักให้สะเด็ดน้ำ</li>
+            <li>ตั้งกระทะไฟแรงจัด ใส่น้ำมันและกระเทียมเจียวให้หอม</li>
+            <li>ใส่กะหล่ำปลีลงไป (ยังไม่ต้องผัด) ราดน้ำปลาที่ขอบกระทะให้ไหม้นิดๆ</li>
+            <li>ผัดเร็วๆ ให้ผักสลดแต่ยังกรอบ ตักใส่จาน</li>
+          </ol>
+        </div>
+        <div class="actions">
+          <button class="btn" onclick="toggleRecipe('step-3')">ดู/ซ่อนวิธีทำ</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="recipe-card" id="menu4">
+      <div class="recipe-img">
+        <img src="https://s.isanook.com/wo/0/ud/36/182937/food.jpg?ip/crop/w670h402/q80/jpg" alt="หมูทอดน้ำปลา">
+      </div>
+      <div class="recipe-content">
+        <h3>4. หมูทอดน้ำปลา</h3>
+        <div class="ingredients">
+          <strong>ส่วนผสม:</strong> หมูสามชั้น 500 กรัม, น้ำปลา 3 ช้อนโต๊ะ, พริกไทยป่น, แป้งทอดกรอบ
+        </div>
+        <div class="steps" id="step-4">
+          <strong>วิธีทำ:</strong>
+          <ol>
+            <li>หั่นหมูเป็นชิ้นพอดีคำ หมักกับน้ำปลาและพริกไทย 15 นาที</li>
+            <li>โรยแป้งทอดกรอบบางๆ คลุกให้ทั่ว</li>
+            <li>ตั้งน้ำมันให้ร้อน ใช้ไฟกลาง ทอดจนเหลืองกรอบ</li>
+            <li>สะเด็ดน้ำมัน เสิร์ฟพร้อมน้ำจิ้มแจ่ว</li>
+          </ol>
+        </div>
+        <div class="actions">
+          <button class="btn" onclick="toggleRecipe('step-4')">ดู/ซ่อนวิธีทำ</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="recipe-card" id="menu5">
+      <div class="recipe-img">
+        <img src="https://www.lemon8-app.com/seo/image?item_id=7237366392826200577&index=1&sign=5aa6711603dda251187e50f64058a488" alt="ยำตะไคร้กุ้งต้ม">
+      </div>
+      <div class="recipe-content">
+        <h3>5. ยำตะไคร้กุ้งต้ม</h3>
+        <div class="ingredients">
+          <strong>ส่วนผสม:</strong> กุ้งต้มสุก, ตะไคร้ซอย, หอมแดง, พริกขี้หนู, น้ำมะนาว, น้ำปลา, น้ำตาลปี๊บ
+        </div>
+        <div class="steps" id="step-5">
+          <strong>วิธีทำ:</strong>
+          <ol>
+            <li>ทำน้ำยำ: ผสมน้ำมะนาว น้ำปลา น้ำตาลปี๊บ ชิมรสเปรี้ยวเค็มหวาน</li>
+            <li>ใส่ตะไคร้ หอมแดง พริกขี้หนู ลงในน้ำยำ</li>
+            <li>ใส่กุ้งต้ม คลุกเคล้าให้เข้ากัน</li>
+            <li>โรยเม็ดมะม่วงหิมพานต์และใบสะระแหน่ก่อนเสิร์ฟ</li>
+          </ol>
+        </div>
+        <div class="actions">
+          <button class="btn" onclick="toggleRecipe('step-5')">ดู/ซ่อนวิธีทำ</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="recipe-card" id="menu6">
+      <div class="recipe-img">
+        <img src="https://f.ptcdn.info/106/072/000/qm55j74nym8md63NdBV-o.png" alt="หอยลายผัดพริกเผา">
+      </div>
+      <div class="recipe-content">
+        <h3>6. หอยลายผัดพริกเผา</h3>
+        <div class="ingredients">
+          <strong>ส่วนผสม:</strong> หอยลาย, น้ำพริกเผา, ใบโหระพา, กระเทียม, นมข้นจืด, พริกขี้หนู
+        </div>
+        <div class="steps" id="step-6">
+          <strong>วิธีทำ:</strong>
+          <ol>
+            <li>ล้างหอยให้สะอาด ลวกพอสุกแล้วพักไว้</li>
+            <li>ผัดกระเทียมกับน้ำพริกเผาให้หอม เติมนมข้นจืดเล็กน้อย</li>
+            <li>ใส่หอยลายลงไปผัด ปรุงรสด้วยน้ำปลา น้ำตาล</li>
+            <li>ใส่พริกและใบโหระพา ผัดให้เข้ากัน ปิดไฟ</li>
+          </ol>
+        </div>
+        <div class="actions">
+          <button class="btn" onclick="toggleRecipe('step-6')">ดู/ซ่อนวิธีทำ</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="recipe-card" id="menu7">
+      <div class="recipe-img">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwxwyUf0MYtyzXG5b8kbrBpfk4k-67IUSJLw&s" alt="พะแนงไก่">
+      </div>
+      <div class="recipe-content">
+        <h3>7. พะแนงไก่</h3>
+        <div class="ingredients">
+          <strong>ส่วนผสม:</strong> เนื้อไก่, พริกแกงพะแนง, หัวกะทิ+หางกะทิ, ใบมะกรูดฝอย, น้ำตาลปี๊บ
+        </div>
+        <div class="steps" id="step-7">
+          <strong>วิธีทำ:</strong>
+          <ol>
+            <li>เคี่ยวหัวกะทิให้แตกมัน ใส่พริกแกงลงผัดจนหอม</li>
+            <li>ใส่เนื้อไก่ ผัดจนสุก เติมหางกะทิพอขลุกขลิก</li>
+            <li>ปรุงรสด้วยน้ำปลา น้ำตาลปี๊บ ชิมให้กลมกล่อม</li>
+            <li>โรยใบมะกรูดฝอยและพริกชี้ฟ้าก่อนยกลง</li>
+          </ol>
+        </div>
+        <div class="actions">
+          <button class="btn" onclick="toggleRecipe('step-7')">ดู/ซ่อนวิธีทำ</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="recipe-card" id="menu8">
+      <div class="recipe-img">
+        <img src="https://www.deksomboon.com/thumb.html?w=900&h=450&src=media_center/recipe/2016/3/10/4504/recipe4504201603106455.jpg" alt="ขาหมูพะโล้โบราณ">
+      </div>
+      <div class="recipe-content">
+        <h3>8. ขาหมูพะโล้โบราณ</h3>
+        <div class="ingredients">
+          <strong>ส่วนผสม:</strong> ขาหมูเผา, ไข่เป็ดต้ม, เครื่องพะโล้, สามเกลอ, ซีอิ๊วดำ, น้ำตาลปี๊บ
+        </div>
+        <div class="steps" id="step-8">
+          <strong>วิธีทำ:</strong>
+          <ol>
+            <li>โขลกสามเกลอ (รากผักชี กระเทียม พริกไทย) ผัดให้หอม</li>
+            <li>ใส่น้ำตาลปี๊บเคี่ยวให้เป็นสีคาราเมล เติมน้ำและเครื่องปรุง</li>
+            <li>ใส่ขาหมูและเครื่องพะโล้ ตุ๋นไฟอ่อน 3-4 ชั่วโมงจนเปื่อย</li>
+            <li>ใส่ไข่ต้มลงไปตุ๋นต่ออีกสักพักให้สีสวย</li>
+          </ol>
+        </div>
+        <div class="actions">
+          <button class="btn" onclick="toggleRecipe('step-8')">ดู/ซ่อนวิธีทำ</button>
+        </div>
+      </div>
+    </article>
+
+    <div class="section-title" style="margin-top: 50px;">
+      <h2 id="sweet">หมวดอาหารหวาน</h2>
+      <div class="sub">เติมความหวานแบบไทยแท้</div>
+    </div>
+    <div class="divider"></div>
+
+    <article class="recipe-card" id="menu9">
+      <div class="recipe-img">
+        <img src="https://cms.dmpcdn.com/food/2020/07/09/a5412a40-c1c9-11ea-ae4e-e33861f653e6_original.jpg" alt="ข้าวเหนียวมะม่วง">
+      </div>
+      <div class="recipe-content">
+        <h3>9. ข้าวเหนียวมะม่วง <span class="badge">ของหวานยอดฮิต</span></h3>
+        <div class="ingredients">
+          <strong>ส่วนผสม:</strong> ข้าวเหนียวเขี้ยวงู, กะทิ, น้ำตาลทราย, เกลือ, มะม่วงสุก
+        </div>
+        <div class="steps" id="step-9">
+          <strong>วิธีทำ:</strong>
+          <ol>
+            <li>นึ่งข้าวเหนียวให้สุกนุ่ม</li>
+            <li>ทำน้ำกะทิมูน: ผสมกะทิ น้ำตาล เกลือ ตั้งไฟพอร้อน</li>
+            <li>เทน้ำกะทิใส่ข้าวเหนียวร้อนๆ ปิดฝาอบไว้ 20 นาที</li>
+            <li>ราดกะทิเข้มข้นโรยถั่วทอง เสิร์ฟคู่มะม่วงสุก</li>
+          </ol>
+        </div>
+        <div class="actions">
+          <button class="btn" onclick="toggleRecipe('step-9')">ดู/ซ่อนวิธีทำ</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="recipe-card" id="menu10">
+      <div class="recipe-img">
+        <img src="https://img.kapook.com/u/2022/wanwanat/1079595941.jpg" alt="บัวลอยไข่หวาน">
+      </div>
+      <div class="recipe-content">
+        <h3>10. บัวลอยไข่หวาน</h3>
+        <div class="ingredients">
+          <strong>ส่วนผสม:</strong> แป้งข้าวเหนียว, น้ำใบเตย, กะทิ, น้ำตาลมะพร้าว, ไข่ไก่, เกลือ
+        </div>
+        <div class="steps" id="step-10">
+          <strong>วิธีทำ:</strong>
+          <ol>
+            <li>นวดแป้งกับน้ำใบเตยหรือฟักทอง ปั้นเป็นก้อนกลมเล็กๆ</li>
+            <li>ตั้งหม้อกะทิ ใส่น้ำตาลมะพร้าวและเกลือ ต้มไฟอ่อน</li>
+            <li>ตอกไข่ใส่หม้อกะทิ รอจนไข่สุกตามชอบ ตักพักไว้</li>
+            <li>ลวกเม็ดบัวลอยในน้ำเดือด พอลอยขึ้นให้ตักใส่หม้อกะทิ</li>
+          </ol>
+        </div>
+        <div class="actions">
+          <button class="btn" onclick="toggleRecipe('step-10')">ดู/ซ่อนวิธีทำ</button>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <footer id="ref">
+    <div class="container">
+      <div class="references">
+        <h3>เอกสารอ้างอิง (References)</h3>
+        <p>เนื้อหาสูตรอาหารในเว็บไซต์นี้ เรียบเรียงขึ้นใหม่เพื่อการศึกษา โดยอ้างอิงข้อมูลพื้นฐานจาก:</p>
+        <ul>
+          <li>1. food.trueid - <em>รวมสูตรอาหารไทยยอดนิยม</em> <a href="https://food.trueid.net/" target="_blank">เยี่ยมชมเว็บไซต์</a></li>
+          <li>2. Wongnai Cooking - <em>สูตรเด็ดเคล็ดลับความอร่อย</em> <a href="https://www.wongnai.com/cooking" target="_blank">เยี่ยมชมเว็บไซต์</a></li>
+        </ul>
+        <div class="divider"></div>
+        <p style="text-align: center; color: #777;">จัดทำโดย นายพรพิพัฒน์ ลลิตวิภาส รหัสนักศึกษา 67070109</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="to-top" id="toTop">
+    <button title="กลับขึ้นด้านบน" onclick="goTop()">↑</button>
+  </div>
+
+  <script>
+    function toggleRecipe(id) {
+      var box = document.getElementById(id);
+      
+      if (box.style.display === "none") {
+        box.style.display = "block";
+      } else {
+        box.style.display = "none";
+      }
+    }
+
+    function goTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function randomMenu() {
+
+      var num = Math.floor(Math.random() * 10) + 1;
+      
+
+      var target = document.getElementById('menu' + num);
+
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        setTimeout(function(){
+            alert("วันนี้ลองทำเมนูที่ " + num + " ดูไหมครับ?");
+        }, 800);
+      }
+    }
+    
+    window.onscroll = function() {
+      var btn = document.getElementById('toTop');
+      if (window.scrollY > 300) {
+        btn.classList.add('show');
+      } else {
+        btn.classList.remove('show');
+      }
+    };
+  </script>
+</body>
+</html>

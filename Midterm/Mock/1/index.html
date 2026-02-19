@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="style.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        td,
+        th {
+            border-bottom: 1px solid black;
+            border-right: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="songtable"></div>
+    <script>
+
+        const head = ["id", "title", "artist", "album", "release_year", "label"];
+        function createtable(data) {
+            let plain = document.getElementById("songtable");
+            let table = document.createElement("table");
+            let table_row = document.createElement("tr");
+            head.forEach((h) => {
+                let table_head = document.createElement("th");
+                table_head.textContent = h;
+                table_row.appendChild(table_head);
+            });
+            table.appendChild(table_row);
+
+            data.songs.forEach((song) => {
+                let table_row2 = document.createElement("tr");
+                head.forEach((h) => {
+                    let table_doc = document.createElement("td");
+                    table_doc.textContent = song[h];
+                    table_row2.appendChild(table_doc);
+                });
+                table.appendChild(table_row2);
+            });
+            plain.appendChild(table);
+        }
+
+        fetch("song.json")
+            .then((response) => response.json())
+            .then((data) => createtable(data))
+            .catch((error) => console.log("error", error));
+    </script>
+
+
+</body>
+
+</html>

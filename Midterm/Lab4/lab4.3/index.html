@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            justify-items: center;
+        }
+
+        .content {
+            justify-items: center;
+            padding: 40px;
+        }
+
+        .form-row {
+            margin-bottom: 30px;
+        }
+
+        input {
+            padding: 4px;
+            font-size: 14px;
+            margin-left: 5px;
+        }
+
+        select {
+            font-size: 14px;
+            padding: 4px;
+            margin-left: 5px;
+        }
+
+        .btn {
+            padding: 6px;
+            font-size: 14px;
+            margin-left: 5px;
+            background-color: rgb(8, 176, 73);
+            color: white;
+            border: none;
+            border-radius: 3px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.08);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+            font-size: 20px;
+        }
+
+        thead th {
+            background-color: #15cdac;
+            color: #fff;
+            padding: 6px 12px;
+            border: 1px solid #d7d7d7;
+            text-align: center;
+        }
+        tbody td{
+            background-color: #ffffff;
+            border: 1px solid #d7d7d7;
+            padding: 6px 12px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <h1>ตารางรายรับ-รายจ่าย</h1>
+        <h2>ยอดคงเหลือ</h2>
+        <h1 class="balance" id="balance">0</h1>
+
+        <div class="form-row">
+            <input type="text" name="item" id="item" placeholder="รายการ">
+            <input type="text" name="amount" id="amount" placeholder="จำนวน">
+            <select id="type">
+                <option value="expense">รายจ่าย</option>
+                <option value="income">รายรับ</option>
+            </select>
+            <input type="date" id="date" />
+            <button class="btn" id="addBtn">เพิ่มรายการ</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 22%;">วันที่</th>
+                    <th>รายการ</th>
+                    <th style="width: 18%;">รายรับ</th>
+                    <th style="width: 18%;">รายจ่าย</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+
+        const balanceEl = document.getElementById("balance");
+        const tbody = document.getElementById("tbody");
+        const itemEl = document.getElementById("item");
+        const amountEl = document.getElementById("amount");
+        const typeEl = document.getElementById("type");
+        const dateEl = document.getElementById("date");
+        const addBtn = document.getElementById("addBtn");
+
+        let balance = 0;
+
+        (function setDefaultDate() {
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, "0");
+            const dd = String(today.getDate()).padStart(2, "0");
+            dateEl.value = `${yyyy}-${mm}-${dd}`;
+        })();
+
+        function formatNumber(n) {
+            return Number(n).toLocaleString("en-US");
+        }
+
+        function updateBalance() {
+            balanceEl.textContent = formatNumber(balance);
+        }
+
+        function clearForm() {
+            itemEl.value = "";
+            amountEl.value = "";
+            typeEl.value = "expense";
+            itemEl.focus();
+        }
+
+        function addRow({ date, item, income, expense }) {
+            const tr = document.createElement("tr");
+
+            const tdDate = document.createElement("td");
+            tdDate.textContent = date;
+
+            const tdItem = document.createElement("td");
+            tdItem.textContent = item;
+
+            const tdIncome = document.createElement("td");
+            tdIncome.textContent = income ? formatNumber(income) : "0";
+
+            const tdExpense = document.createElement("td");
+            tdExpense.textContent = expense ? formatNumber(expense) : "0";
+            tr.appendChild(tdDate);
+            tr.appendChild(tdItem);
+            tr.appendChild(tdIncome);
+            tr.appendChild(tdExpense);
+    
+            tbody.prepend(tr);
+        }
+
+        function validate() {
+            const item = itemEl.value.trim();
+            const amount = amountEl.value;
+            const date = dateEl.value;
+
+            if (!item) {
+                alert("กรุณากรอกชื่อรายการ");
+                itemEl.focus();
+                return false;
+            }
+
+            if (amount === "" || Number(amount) <= 0) {
+                alert("กรุณากรอกจำนวนเงินให้ถูกต้อง (มากกว่า 0)");
+                amountEl.focus();
+                return false;
+            }
+            if (!date) {
+                alert("กรุณาเลือกวันที่ทำรายการ");
+                dateEl.focus();
+                return false;
+            }
+            return true;
+        }
+
+        function handleAdd() {
+            if (!validate()) return;
+
+            const item = itemEl.value.trim();
+            const amount = Number(amountEl.value);
+            const type = typeEl.value;
+            const date = dateEl.value;
+
+            let income = 0, expense = 0;
+
+            if (type === "income") {
+                income = amount;
+                balance += income;
+            }
+            else {
+                expense = amount;
+                balance -= amount;
+            }
+            addRow({ date, item, income, expense });
+            updateBalance();
+            clearForm();
+        }
+
+        addBtn.addEventListener("click", handleAdd);
+    </script>
+</body>
+
+</html>

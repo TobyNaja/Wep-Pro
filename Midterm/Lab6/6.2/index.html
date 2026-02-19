@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+
+            width: 13%;
+        }
+        .frame{
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+        }
+        .student{
+            box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px;
+            width: 220px;
+            height: 380px;
+            float: left;
+        }
+        img{
+            width: 220px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" >
+        <div class="frame" id="frame"></div>
+        
+    </div>
+
+    <script>
+        function info(data){
+            data.forEach(function(std, index){
+                index += 1;
+                const frame = document.getElementById("frame");
+                
+                const card = document.createElement("div");
+                card.classList.add("student");
+                
+                const img = document.createElement("img");
+                if (std.gender == "Male"){
+                    img.src = './img/img_male.png';
+                }
+                else if (std.gender == "Female"){
+                    img.src = './img/img_Female.png';
+                }
+
+                const name = document.createElement("h3");
+                name.appendChild(document.createTextNode(index+ ". " + std.name));
+
+                const phy = document.createElement("p");
+                phy.appendChild(document.createTextNode(std.physics));
+                const maths = document.createElement("p");
+                maths.appendChild(document.createTextNode(std.maths));
+                const english = document.createElement("p");
+                english.appendChild(document.createTextNode(std.english));
+
+                card.appendChild(img);
+                card.appendChild(name);
+                card.appendChild(phy);
+                card.appendChild(maths);
+                card.appendChild(english);
+                frame.appendChild(card);
+
+                console.log(std,index);
+                
+            });
+            
+        }
+
+        fetch('http://webdev.it.kmitl.ac.th/labdocs/lab6/json/student-score.json')
+        .then(response => response.json())
+        .then(data => info(data))
+            .catch(error => console.log('error', error));
+    </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            margin: 20px;
+            font-size: 20px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 10px;
+            display: block;
+        }
+
+        @media (max-width: 900px){
+            .grid{
+                grid-template-columns: repeat(2,1fr);
+            }
+        }
+
+        @media (max-width: 520px){
+            .grid{
+                grid-template-columns: repeat(1,1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Top Biggest Animals</h1>
+        <p class="intro">
+            Animals take many shapes and forms and come in a great diversity of sizes, from microscopic to the 30 m long
+            blue whale!
+            Whether you measure in terms of weight, height or length, there is no denying some animals are huge in
+            comparison to others in their class.
+        </p>
+
+        <div class="grid">
+            <div class="item">
+                <img
+                    src="https://www.marinemammalcenter.org/storage/app/uploads/public/d60/299/459/thumb__1600_0_0_0_crop.jpg">
+                <h3>1. Blue Whale</h3>
+                <p>The Blue whale is the largest animal of all time.</p>
+            </div>
+
+            <div class="item">
+                <img src="https://cdn.shopify.com/s/files/1/0024/1788/5284/files/giant-squid-architeuthis-dux.jpg">
+                <h3>2. Colossal Squid</h3>
+                <p>The size of the colossal squid is often exaggerated.</p>
+            </div>
+
+            <div class="item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/37/African_Bush_Elephant.jpg">
+                <h3>3. African Elephant</h3>
+                <p>The largest living land animal on Earth.</p>
+            </div>
+
+            <div class="item">
+                <img
+                    src="https://d1jyxxz9imt9yb.cloudfront.net/medialib/4659/image/s768x1300/AdobeStock_331202050_538219_reduced.jpg">
+                <h3>4. Giraffe</h3>
+                <p>The tallest living animal, reaching up to 5.8 meters.</p>
+            </div>
+        </div>
+</body>
+
+</html>

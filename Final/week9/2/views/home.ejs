@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .question-card { margin-bottom: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+
+<div class="container py-5">
+    <h1 class="mb-4 text-primary">Questions</h1>
+    <hr>
+
+    <% questions.forEach((q, index) => { %>
+        <div class="card question-card">
+            <div class="card-body">
+                <h5 class="card-title fw-bold">
+                    <%= index + 1 %>. <%= q.Stem %>
+                </h5>
+                
+                <div class="form-check mt-3">
+                    <input class="form-check-input" type="radio" name="q<%= q.QID %>" id="q<%= q.QID %>a">
+                    <label class="form-check-label" for="q<%= q.QID %>a"><%= q.Alt_A %></label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q<%= q.QID %>" id="q<%= q.QID %>b">
+                    <label class="form-check-label" for="q<%= q.QID %>b"><%= q.Alt_B %></label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q<%= q.QID %>" id="q<%= q.QID %>c">
+                    <label class="form-check-label" for="q<%= q.QID %>c"><%= q.Alt_C %></label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="q<%= q.QID %>" id="q<%= q.QID %>d">
+                    <label class="form-check-label" for="q<%= q.QID %>d"><%= q.Alt_D %></label>
+                </div>
+            </div>
+        </div>
+    <% }); %>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

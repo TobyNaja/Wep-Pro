@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 4/3: DOM TextNode</title>
+    <style>
+        body { font-family: 'Sarabun', sans-serif; text-align: center; margin: 20px; }
+        #balance-display { font-size: 3em; font-weight: bold; margin: 20px 0; }
+        .input-group { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        input, select, button { padding: 10px; font-size: 16px; }
+        button { background-color: #28a745; color: white; border: none; cursor: pointer; }
+        table { margin: 0 auto; border-collapse: collapse; width: 80%; }
+        thead { background-color: #1abc9c; color: white; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <h1>ตารางรายรับ-รายจ่าย</h1>
+    <h2>ยอดคงเหลือ</h2>
+    
+    <div id="balance-display"></div>
+
+    <div class="input-group">
+        <input type="text" id="input-desc" placeholder="รายการ">
+        <input type="number" id="input-amount" placeholder="จำนวน">
+        <select id="input-type">
+            <option value="expense">รายจ่าย</option>
+            <option value="income">รายรับ</option>
+        </select>
+        <input type="date" id="input-date">
+        <button id="add-btn">เพิ่มรายการ</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>วันที่</th>
+                <th>รายการ</th>
+                <th>รายรับ</th>
+                <th>รายจ่าย</th>
+            </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+    </table>
+
+    <script>
+        let totalBalance = 0;
+
+        const addBtn = document.getElementById('add-btn');
+        const tableBody = document.getElementById('table-body');
+        const balanceDisplay = document.getElementById('balance-display');
+
+        // กำหนดค่าเริ่มต้นให้ยอดเงินคงเหลือ (โดยใช้ TextNode)
+        const initialBalanceNode = document.createTextNode("0");
+        balanceDisplay.appendChild(initialBalanceNode);
+
+        addBtn.addEventListener('click', function() {
+            const descInput = document.getElementById('input-desc');
+            const amountInput = document.getElementById('input-amount');
+            const typeInput = document.getElementById('input-type');
+            const dateInput = document.getElementById('input-date');
+
+            const desc = descInput.value;
+            const amount = parseFloat(amountInput.value);
+            const type = typeInput.value;
+            const date = dateInput.value;
+
+            if (desc === '' || isNaN(amount) || date === '') {
+                alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+                return;
+            }
+
+            // --- 1. คำนวณยอดเงิน ---
+            let incomeVal = 0;
+            let expenseVal = 0;
+
+            if (type === 'income') {
+                totalBalance += amount;
+                incomeVal = amount;
+                expenseVal = 0;
+            } else {
+                totalBalance -= amount;
+                incomeVal = 0;
+                expenseVal = amount;
+            }
+
+            // --- 2. อัปเดตยอดคงเหลือ (แบบไม่ใช้ innerText) ---
+            // ต้องลบ TextNode เก่าออกก่อน ไม่งั้นเลขจะต่อกันยาวๆ
+            if (balanceDisplay.firstChild) {
+                balanceDisplay.removeChild(balanceDisplay.firstChild);
+            }
+            // สร้าง TextNode ใหม่แล้วใส่เข้าไป
+            const newBalanceText = document.createTextNode(totalBalance);
+            balanceDisplay.appendChild(newBalanceText);
+
+            // --- 3. สร้างแถวในตาราง (แบบไม่ใช้ innerText) ---
+            const row = document.createElement('tr');
+
+            // ฟังก์ชันช่วยสร้าง TD พร้อม TextNode ข้างใน
+            function createCell(text) {
+                const td = document.createElement('td');
+                const textNode = document.createTextNode(text);
+                td.appendChild(textNode);
+                return td;
+            }
+
+            // สร้างแต่ละเซลล์โดยเรียกฟังก์ชัน
+            const colDate = createCell(date);
+            const colDesc = createCell(desc);
+            const colIncome = createCell(incomeVal);
+            const colExpense = createCell(expenseVal);
+
+            // เอาเซลล์ใส่แถว
+            row.appendChild(colDate);
+            row.appendChild(colDesc);
+            row.appendChild(colIncome);
+            row.appendChild(colExpense);
+
+            // เอาแถวใส่ตาราง
+            tableBody.appendChild(row);
+
+            // เคลียร์ค่า input
+            descInput.value = '';
+            amountInput.value = '';
+        });
+    </script>
+</body>
+</html>

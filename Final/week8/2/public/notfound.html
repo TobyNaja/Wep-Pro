@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Not Found</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f3f4f6;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+        .alert-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        .icon {
+            font-size: 50px;
+            color: #f59e0b; /* สีส้มแจ้งเตือน */
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #1f2937;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #4f46e5;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background-color: #4338ca;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="alert-card">
+        <div class="icon">🔍</div>
+        <h1>ไม่พบบัญชีผู้ใช้</h1>
+        <p>อีเมลหรือชื่อผู้ใช้ที่คุณกรอกไม่มีอยู่ในระบบ โปรดตรวจสอบอีกครั้ง</p>
+        <a href="/" class="btn">กลับไปหน้าเข้าสู่ระบบ</a>
+    </div>
+</body>
+</html>

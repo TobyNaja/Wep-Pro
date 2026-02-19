@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        label{
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div><label for="firstname" id="firstname">ชื่อ:</label><input type="text"
+                id="fname"></div>
+        <div><label for="surname" id="surname">นามสกุล:</label><input type="text"
+                id="lname"></div>
+        <div><label for="country" id="country">ประเทศ:</label>
+            <select id="countryOptions"></select>
+        </div>
+        <button onclick="changlanguage() "id="btn">เปลี่ยนเป็นภาษาอังกฤษ</button> 
+    </div>
+
+    <script>
+        let thai = true;
+        const CountrylistEN = [
+            "Select Country", "Thailand", "Vietnam", "Laos", "Malaysia",
+            "Singapore", "Philippines", "Myanmar", "Cambodia", "Brunei", "Indonesia"
+        ];
+        const CountrylistTH = [
+            "เลือกประเทศ", "ไทย", "เวียดนาม", "ลาว", "มาเลเซีย",
+            "สิงคโปร์", "ฟิลิปปินส์", "เมียนมา", "กัมพูชา", "บรูไน", "อินโดนีเซีย"
+        ];
+
+        let firstname = document.getElementById('firstname');
+        let surname = document.getElementById('surname');
+        let country = document.getElementById('country');
+        let contryse = document.getElementById('countryOptions');
+        changeToThai();
+
+        function changlanguage(){
+            contryse.replaceChildren();
+            if(thai == true){
+                changeToEng();
+                thai = false;
+            }
+            else{
+                changeToThai();
+                thai = true;
+            }
+        }
+
+        function changeToEng(){
+            firstname.replaceChild(document.createTextNode("name"), firstname.firstChild);
+            surname.replaceChild(document.createTextNode("surname"), surname.firstChild);
+            country.replaceChild(document.createTextNode("country"), country.firstChild);
+
+            CountrylistEN.forEach((eng) => {
+                let option = document.createElement('option');
+                option.appendChild(document.createTextNode(eng));
+                contryse.appendChild(option);
+            });
+            let nameBtn = document.createTextNode("Change to Thai");
+            let btntxt = document.getElementById('btn').firstChild;
+            document.getElementById('btn').replaceChild(nameBtn, btntxt);
+        }
+
+        function changeToThai(){
+            firstname.replaceChild(document.createTextNode("ชื่อ"), firstname.firstChild);
+            surname.replaceChild(document.createTextNode("นามสกุล"), surname.firstChild);
+            country.replaceChild(document.createTextNode("ประเทศ"), country.firstChild);
+            CountrylistTH.forEach((th) => {
+                let txt = document.createTextNode(th);
+                let option = document.createElement('option');
+                option.appendChild(txt);
+                contryse.appendChild(option);
+            });
+            let nameBtn = document.createTextNode("เปลี่ยนเป็นภาษาอังกฤษ");
+            let btntxt = document.getElementById('btn').firstChild;
+            document.getElementById('btn').replaceChild(nameBtn, btntxt);
+        }
+        
+    </script>
+</body>
+
+</html>

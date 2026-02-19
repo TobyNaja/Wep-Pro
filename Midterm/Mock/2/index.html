@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            justify-items: center;
+            margin-top: 50px;
+
+        }
+        .form{
+            display: flex;
+            flex-direction: column;
+        }
+        .showInfo{
+            background-color: aliceblue;
+            width: 200px;
+            padding: 20px;
+        }
+        .card{
+            background-color: gray;
+            padding: 4px 10px 4px 20px;
+            margin: 10px;
+        }
+        .card p{
+            margin: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form">
+            <label for="">คำนำหน้าชื่อ : <input id="title" type="text"></label>
+            <label  for="">ชื่อจริง : <input id="name" type="text"></label>
+            <label  for="">นามสกุล : <input id="surname" type="text"></label>
+            <label  for="">ที่อยู่ : <input id="address" type="text"></label>
+            <label  for="">อาชีพ : <input id="job" type="text"></label>
+            <label  for="">เบอร์โทร : <input id="phone" type="text"></label>
+            <div class="confirm">
+                <button id="save" class="save">Save</button>
+                <button id="view" class="view">View</button>
+                <button id="delete" class="delete">Delate</button>
+                <hr>
+            </div>
+        </div>
+        <div id="showInfo" class="showInfo">
+            <h1> Show Info</h1>
+        </div>
+    </div>
+
+    <script>
+        
+        
+        const title = document.getElementById("title");
+        const name = document.getElementById("name");
+        const surname = document.getElementById("surname");
+        const address = document.getElementById("address");
+        const job = document.getElementById("job");
+        const phone = document.getElementById("phone");
+        
+        const saveBtn = document.getElementById("save");
+        const viewBtn = document.getElementById("view");
+        const deleteBtn = document.getElementById("delete");
+        const KEY = "infos";
+        
+        saveBtn.addEventListener("click", function(){
+            if (!name.value.trim() || !title.value.trim() || !surname.value.trim() || !address.value.trim() || !job.value.trim() || !phone.value.trim()){
+                alert("กรอกข้อมูลให้ครบ")
+                return
+            }
+            const info = {
+                title: title.value.trim(),
+                name: name.value.trim(),
+                surname: surname.value.trim(),
+                address: address.value.trim(),
+                job: job.value.trim(),
+                phone: phone.value.trim()
+            };
+
+            const infos = JSON.parse(localStorage.getItem(KEY)) || [];
+            infos.push(info);
+            localStorage.setItem(KEY, JSON.stringify(infos));
+            console.log(infos)
+            alert("บันทึกแล้ว");
+
+            title.value = "";
+            name.value = "";
+            surname.value = "";
+            address.value = "";
+            job.value = "";
+            phone.value = "";
+        })
+
+        function display(){
+
+            const showInfo = document.getElementById("showInfo");
+            while(showInfo.firstChild){
+                showInfo.removeChild(showInfo.firstChild);
+            }
+
+            const listinfo = JSON.parse(localStorage.getItem(KEY));
+            if (!listinfo){
+                alert("ไม่มีข้อมูล")
+                return;
+            }
+            listinfo.forEach(info => {
+                const card = document.createElement("div");
+                card.className = "card";
+
+                const title = document.createElement("p");
+                title.appendChild(document.createTextNode("Title : " + info.title));
+
+                const name = document.createElement("p");
+                name.appendChild(document.createTextNode("Name : " + info.name));
+
+                const surname = document.createElement("p");
+                surname.appendChild(document.createTextNode("Surname : " + info.surname));
+
+                const address = document.createElement("p");
+                address.appendChild(document.createTextNode("Address : " + info.address));
+                
+                card.appendChild(title)
+                card.appendChild(name)
+                card.appendChild(surname)
+                card.appendChild(address)
+
+                showInfo.appendChild(card);
+            })
+        }
+
+        viewBtn.addEventListener("click", function() {
+            display()
+        })
+
+        deleteBtn.addEventListener("click", function(){
+            localStorage.removeItem(KEY);
+            
+            display();
+        })
+    </script>
+</body>
+</html>

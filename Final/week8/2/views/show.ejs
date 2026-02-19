@@ -1,0 +1,133 @@
+<style>
+    :root {
+        --glass-bg: rgba(255, 255, 255, 0.85);
+        --accent-color: #6366f1;
+        --text-dark: #1e293b;
+        --text-light: #64748b;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        /* พื้นหลังไล่สีแบบเก๋ๆ */
+        background: linear-gradient(135deg, #f5f7fa 0%, #f0b8e6 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .profile-wrapper {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 24px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+        width: 90%;
+        max-width: 800px;
+        padding: 40px;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .header h1 {
+        margin: 0;
+        font-size: 2rem;
+        color: var(--text-dark);
+        letter-spacing: -0.5px;
+    }
+
+    .header p {
+        color: var(--accent-color);
+        font-weight: 600;
+        margin-top: 5px;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+    }
+
+    /* จัดข้อมูลเป็นตารางสวยๆ */
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+
+    .info-item {
+        padding: 15px;
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 12px;
+        transition: all 0.2s;
+    }
+
+    .info-item:hover {
+        background: white;
+        transform: scale(1.02);
+    }
+
+    .label {
+        display: block;
+        font-size: 0.8rem;
+        color: var(--text-light);
+        margin-bottom: 4px;
+        font-weight: 500;
+    }
+
+    .value {
+        display: block;
+        font-size: 1.1rem;
+        color: var(--text-dark);
+        font-weight: 600;
+    }
+    .full-width {
+        grid-column: span 2;
+    }
+
+</style>
+
+<body>
+    <div class="profile-wrapper">
+        <% data.forEach((item) => { %>
+        <div class="header">
+            <h1>User Profile</h1>
+            <p>ID: <%= item.username %></p>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <span class="label">First Name</span>
+                <span class="value"><%= item.firstname %></span>
+            </div>
+            <div class="info-item">
+                <span class="label">Last Name</span>
+                <span class="value"><%= item.lastname %></span>
+            </div>
+            <div class="info-item">
+                <span class="label">Email Address</span>
+                <span class="value"><%= item.email %></span>
+            </div>
+            <div class="info-item">
+                <span class="label">Phone Number</span>
+                <span class="value"><%= item.phone %></span>
+            </div>
+            <div class="info-item">
+                <span class="label">Age</span>
+                <span class="value"><%= item.age %> Years old</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Password</span>
+                <span class="value"><%= item.password %></span>
+            </div>
+            <div class="info-item full-width">
+                <span class="label">Home Address</span>
+                <span class="value"><%= item.address %></span>
+            </div>
+        </div>
+        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #eee;">
+        <% }) %>
+    </div>
+</body>

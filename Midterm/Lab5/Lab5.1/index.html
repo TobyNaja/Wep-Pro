@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 40px;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            font-size: 42px;
+        }
+
+        .card {
+            padding: 10px 20px 15px 20px;
+            background-color: rgb(250, 250, 250);
+            /* width: 340px; */
+            border-radius: 10px;
+            box-shadow: rgba(66, 66, 66, 0.442) 2px 4px 10px 2px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .card a {
+            margin-top: auto;
+        }
+
+        .center {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 700px) {
+            .center {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1> Languages </h1>
+    <div class="center">
+        <div class="card">
+            <h3> Python </h3>
+            <p>Python is a high-level, general-purpose programming language known for its readability and simple syntax. Created by Guido van Rossum in 1991, it is an interpreted 
+                language that supports multiple programming paradigms, including object-oriented, procedural, and functional programming. </p>
+            <a href=""> Read more -></a>
+        </div>
+        <div class="card">
+            <h3> JavaScript </h3>
+            <p>JavaScript is a versatile, high-level programming language that is one of the core technologies of the World Wide Web, alongside 
+                HTML and CSS. It is primarily used to make websites interactive and dynamic, enabling features that respond to user actions. </p>
+            <a href=""> Read more -></a>
+        </div>
+        <div class="card">
+            <h3> Java </h3>
+            <p>Java is a popular, high-level, object-oriented programming language and computing platform known for its "Write Once, Run Anywhere" 
+                (WORA) capability, meaning code runs on any device with a Java Virtual Machine (JVM).</p>
+            <a href=""> Read more -></a>
+        </div>
+        <div class="card">
+            <h3> C++ </h3>
+            <p>C++ (pronounced "C plus plus") is a powerful, general-purpose programming language known for its high performance, efficiency, and control over system resources and memory</p>
+            <a href=""> Read more -></a>
+        </div>
+    </div>
+</body>
+
+</html>

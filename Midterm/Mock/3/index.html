@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Responsive PC / Mobile (No Bootstrap/Tailwind)</title>
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      background: #f6f7fb;
+      color: #111;
+    }
+
+    /* ===== Top Menu / Header ===== */
+    .topbar {
+      position: sticky;
+      top: 0;
+      background: #111827;
+      color: #fff;
+      padding: 12px 16px;
+      z-index: 10;
+    }
+    .topbar-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand {
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+    .nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .nav a {
+      color: #fff;
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    .nav a:hover { background: rgba(255,255,255,0.12); }
+
+    /* ===== Page Layout ===== */
+    .page {
+      max-width: 1100px;
+      margin: 18px auto;
+      padding: 0 16px 24px;
+    }
+
+    /* PC: 2 columns */
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* 2 columns on PC */
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    }
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+    .muted { color: #6b7280; }
+
+    .list {
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+    .list li { margin: 6px 0; }
+
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .btn {
+      border: 0;
+      padding: 10px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #111827;
+      color: #fff;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .btn.secondary {
+      background: #eef2ff;
+      color: #111827;
+      border: 1px solid #c7d2fe;
+    }
+
+    /* ===== Mobile: 1 column ===== */
+    @media (max-width: 768px) {
+      .content {
+        grid-template-columns: 1fr; /* 1 column on Mobile */
+      }
+      .nav a {
+        font-size: 13px;
+        padding: 6px 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Top Menu -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">MySite</div>
+      <nav class="nav">
+        <a href="#home">Home</a>
+        <a href="#news">News</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page" id="home">
+    <div class="card">
+      <h2>Responsive Layout: PC vs Mobile</h2>
+      <p class="muted">
+        PC จะแสดง 2 คอลัมน์ (Grid 1fr 1fr) และ Mobile จะเปลี่ยนเป็น 1 คอลัมน์
+        โดยใช้ <b>Media Query</b> เท่านั้น (ไม่ใช้ Bootstrap/Tailwind)
+      </p>
+    </div>
+
+    <!-- Content: 2 columns on PC, 1 column on mobile -->
+    <section class="content">
+      <div class="card" id="news">
+        <h2>คอลัมน์ซ้าย (Content A)</h2>
+        <p>
+          ตัวอย่างเนื้อหาสำหรับฝั่งซ้าย บน PC จะอยู่ซ้าย และบน Mobile จะย้ายลงมาเรียงเป็นบล็อกเดียว
+        </p>
+        <ul class="list">
+          <li>ใช้ CSS Grid จัดคอลัมน์</li>
+          <li>ใช้ @media ปรับเมื่อหน้าจอเล็ก</li>
+          <li>ไม่ใช้ Framework</li>
+        </ul>
+        <div class="btn-row">
+          <button class="btn">Action</button>
+          <button class="btn secondary">Secondary</button>
+        </div>
+      </div>
+
+      <div class="card" id="about">
+        <h2>คอลัมน์ขวา (Content B)</h2>
+        <p>
+          ตัวอย่างเนื้อหาสำหรับฝั่งขวา เมื่อเป็น Mobile จะเปลี่ยนจาก 2 คอลัมน์เป็น 1 คอลัมน์อัตโนมัติ
+        </p>
+        <ul class="list">
+          <li>PC: grid-template-columns: 1fr 1fr</li>
+          <li>Mobile: grid-template-columns: 1fr</li>
+          <li>ปรับการแสดงผลได้ตามขนาดหน้าจอ</li>
+        </ul>
+      </div>
+
+      <div class="card" id="contact">
+        <h2>ส่วนเสริม (Card เพิ่มได้)</h2>
+        <p class="muted">
+          คุณสามารถเพิ่ม card ได้เรื่อย ๆ บน PC จะเรียง 2 คอลัมน์ และบน Mobile จะเรียงลงมาเป็น 1 คอลัมน์
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>ตัวอย่างเนื้อหาเพิ่มเติม</h2>
+        <p>
+          ลองย่อ/ขยายหน้าจอ หรือเปิด DevTools > Toggle Device Toolbar เพื่อดูการเปลี่ยนโหมด PC/Mobile
+        </p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

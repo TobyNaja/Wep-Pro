@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* ตั้งค่าพื้นฐาน */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 600px;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .line {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Prompt', sans-serif;
+            outline: none;
+        }
+
+        input[type="text"]:focus {
+            border-color: #007bff;
+        }
+
+        button {
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-family: 'Prompt', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .add {
+            background-color: #007bff;
+            color: white;
+            white-space: nowrap;
+        }
+
+        .add:hover {
+            background-color: #0056b3;
+        }
+
+        .removeall {
+            background-color: #007bff;
+            color: white;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            width: auto;
+        }
+
+        .removeall:hover {
+            background-color: #0056b3;
+        }
+
+        .list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* ส่วนที่สำคัญ: กล่องคลุมแต่ละรายการ */
+        .movie-item {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex; /* จัดเรียงแนวนอน */
+            justify-content: space-between; /* ดันข้อความไปซ้าย ปุ่มไปขวา */
+            align-items: center; /* ให้อยู่กึ่งกลางแนวตั้ง */
+        }
+
+        .movie-item h3 {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #333;
+            margin: 0;
+        }
+
+        .remove {
+            background-color: #dc3545;
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+        }
+
+        .remove:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>รายการภาพยนตร์/ซีรีส์โปรด</h1>
+        <div class="line">
+            <input type="text" placeholder="" id="input">
+            <button class="add" id="add">+ เพิ่ม</button>
+        </div>
+        <button class="removeall" id="removeall">ลบทั้งหมด</button>
+        <div class="list" id="list">
+            <div class="item">
+                <h3>The Night Agent</h3>
+                <button class="remove">ลบ</button>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        const addBtn = document.getElementById("add");
+        addBtn.addEventListener("click", function () {
+            const input = document.getElementById('input');
+
+            if (input.value == ""){
+                return;
+            }
+
+            if (localStorage.getItem("movie")) {
+                localStorage.setItem("movie", localStorage.getItem("movie") + "," + input.value);
+            }
+            else {
+                localStorage.setItem("movie", input.value);
+            }
+            console.log(localStorage.getItem("movie"));
+            displayMovie();
+            input.value = "";
+        });
+
+        const removeall = document.getElementById("removeall");
+        removeall.addEventListener("click", function () {
+            localStorage.removeItem("movie");
+            displayMovie();
+        });
+
+        function displayMovie() {
+            while (list.firstChild) {
+                list.removeChild(list.firstChild);
+            }
+
+            let movieList = localStorage.getItem("movie");
+
+            movieList = movieList.split(",")
+            movieList.forEach((movie,index) => {
+
+                let list = document.getElementById("list");
+                list.className = "list";
+
+                let h3 = document.createElement("h3");
+                h3.appendChild(document.createTextNode(movie));
+
+                let button = document.createElement("button");
+                button.appendChild(document.createTextNode("ลบ"));
+
+                button.onclick = function () {
+                    movieList.splice(index, 1);
+                    if (movieList.length === 0) {
+                        localStorage.removeItem("movie");
+                    } 
+                    else {
+                        localStorage.setItem("movie", movieList.join(","));
+                    }
+                    displayMovie();
+                }
+
+                list.appendChild(h3);
+                list.appendChild(button);
+            });
+        }
+        displayMovie()
+    </script>
+</body>
+
+</html>

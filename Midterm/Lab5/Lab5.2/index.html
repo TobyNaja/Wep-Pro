@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .center {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            padding: 24px;
+            margin: 10px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        .card img {
+            max-width: 100%;
+            height: 300px;
+            display: block;
+            object-fit: cover;
+            object-position: top;
+        }
+
+        .caption {
+            border: 1px solid rgb(97, 97, 97);
+            width: auto;
+            display: inline-block;
+            width: 100%;
+            font-size: 24px;
+            padding: 10px 0;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 900px) {
+            .center {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 520px) {
+            .center {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="center">
+        <div class="card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Cat_November_2010-1a.jpg/960px-Cat_November_2010-1a.jpg"
+                alt="">
+            <div class="caption">CAT</div>
+        </div>
+
+        <div class="card">
+            <img src="https://i.pinimg.com/736x/16/42/9f/16429f2066c07b57bd3d65dd92ca47ca.jpg" alt="">
+            <div class="caption">DOG</div>
+        </div>
+
+        <div class="card">
+            <img src="https://i.pinimg.com/736x/42/4d/9f/424d9ff83922f4d1ef0bbb276c3c0987.jpg" alt="">
+            <div class="caption">Fish</div>
+        </div>
+
+        <div class="card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Eopsaltria_australis_-_Mogo_Campground.jpg/1280px-Eopsaltria_australis_-_Mogo_Campground.jpg"
+                alt="">
+            <div class="caption">Bird</div>
+        </div>
+
+        <div class="card">
+            <img src="https://i.pinimg.com/736x/33/21/8c/33218cf6459b0a79912fd579f1c2ae67.jpg" alt="">
+            <div class="caption">Elephant</div>
+        </div>
+        <div class="card">
+            <img src="https://i.pinimg.com/736x/54/db/a8/54dba8ac1f6d7ae1c1551ef9615c7e39.jpg" alt="">
+            <div class="caption">Monkey</div>
+        </div>
+        <div class="card">
+            <img src="https://i.pinimg.com/736x/09/37/60/0937600486cc5b99c900037da382059d.jpg" alt="">
+            <div class="caption">Frog</div>
+        </div>
+        <div class="card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d2/Moo_deng_%E0%B8%AB%E0%B8%A1%E0%B8%B9%E0%B9%80%E0%B8%94%E0%B9%89%E0%B8%87_%282024-09-11%29_-_img_02.jpg"
+                alt="">
+            <div class="caption">Moodeng</div>
+        </div>
+
+
+    </div>
+</body>
+
+</html>

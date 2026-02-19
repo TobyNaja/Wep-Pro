@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container" id="container"></div>
+
+    <script>
+        const container = document.getElementById("container");
+
+        function render(data){
+            data.forEach((q,index) => {
+                const h3 = document.createElement('h3');
+                const form = document.createElement('form');
+                const choice1 = document.createElement('input');
+                const choice2 = document.createElement('input');
+                const choice3 = document.createElement('input');
+                const label1 = document.createElement('label');
+                const label2 = document.createElement('label');
+                const label3 = document.createElement('label');
+
+                choice1.setAttribute('type','radio');
+                choice2.setAttribute('type','radio');
+                choice3.setAttribute('type','radio');
+
+                choice1.name = 'choice'+index;
+                choice1.value = q.answers.a;
+                choice1.id = q.answers.a+index;
+                label1.appendChild(document.createTextNode(`A. ${q.answers.a}`))
+                label1.setAttribute('for',q.answers.a+index);
+
+                choice2.name = 'choce'+index
+
+                choice2.name = 'choice'+index;
+                choice2.value = q.answers.b;
+                choice2.id = q.answers.b+index;
+                label2.appendChild(document.createTextNode(`B. ${q.answers.b}`))
+                label2.setAttribute('for',q.answers.b+index);
+
+                choice3.name = 'choice'+index;
+                choice3.value = q.answers.c;
+                choice3.id = q.answers.c+index;
+                label3.appendChild(document.createTextNode(`C. ${q.answers.c}`))
+                label3.setAttribute('for',q.answers.c+index);
+
+                const correct = q.answers.correct;
+                if (correct === 'a'){
+                    choice1.checked = true
+                } else if(correct === 'b'){
+                    choice2.checked = true;
+                } else {
+                    choice3.checked = true;
+                }
+                form.append(choice1,label1,choice2,label2,choice3,label3);
+                const question = document.createTextNode(q.question);
+                h3.appendChild(question);
+
+                container.append(h3,form);
+            })
+        }
+
+        fetch('http://webdev.it.kmitl.ac.th/labdocs/lab6/json/questionAnswerData.json')
+        .then(res => res.json())
+        .then(data => render(data))
+        .catch(error => console.log('error', error));
+    </script>
+</body>
+</html>

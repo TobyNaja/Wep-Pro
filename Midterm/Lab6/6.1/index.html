@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container{
+            display: grid;
+            justify-items: center;
+            margin-top: 40px;
+        }
+        table{
+            width: 60%;
+            border-collapse: collapse;
+        }
+
+        th, td{
+            border-bottom: solid 1px rgb(175, 175, 175);
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #fff;
+        }
+
+        /* บรรทัดที่เป็นเลขคู่ (2, 4, 6...) ให้เป็นสีเทาอ่อนมากๆ */
+        tbody tr:nth-child(even) {
+            background-color: #d4d4d4; 
+        }
+
+        /* (แถม) เวลาเอาเมาส์ชี้ ให้เปลี่ยนสีนิดหน่อย */
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Position</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+        </table>
+    </div>
+    <script>
+        function emp(data){
+            const tbody = document.getElementById("tbody");
+
+            data.forEach(item => {
+                const tr = document.createElement("tr");
+
+                const tdID = document.createElement("td");
+                tdID.appendChild(document.createTextNode(item.id));
+
+                const tdfullname = document.createElement("td");
+                tdfullname.appendChild(document.createTextNode(item.FirstName + " " + item.LastName));
+
+                const tdGender = document.createElement("td");
+                tdGender.appendChild(document.createTextNode(item.Gender));
+
+                const tdPosition = document.createElement("td");
+                tdPosition.appendChild(document.createTextNode(item.Position));
+
+                const tdAddress = document.createElement("td");
+                tdAddress.appendChild(document.createTextNode(item.Address));
+
+                tr.appendChild(tdID);
+                tr.appendChild(tdfullname);
+                tr.appendChild(tdGender);
+                tr.appendChild(tdPosition);
+                tr.appendChild(tdAddress);
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        fetch('http://webdev.it.kmitl.ac.th/labdocs/lab6/json/employees.json')
+        .then(response => response.json())
+        .then(data => emp(data))
+            .catch(error => console.log('error',error));
+            
+    </script>
+</body>
+</html>

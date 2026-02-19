@@ -1,0 +1,87 @@
+body {
+  margin: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* navbar container */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  width: 700px;
+  align-items: center;
+  background-color: #333;
+  padding: 12px 24px;
+}
+
+/* left menu */
+.nav-left a {
+  color: white;
+  text-decoration: none;
+  margin-right: 20px;
+  font-weight: 500;
+}
+
+.nav-left a:hover {
+  text-decoration: underline;
+}
+
+/* right button */
+.about-btn {
+  background-color: #12b76a;
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.about-btn:hover {
+  background-color: #0ea25c;
+}
+
+
+/* --------------------------------- Cat Page -------------------------------------------- */
+/* ===== Cats page only ===== */
+
+.cats-page {
+  padding: 20px;
+}
+
+.cats-page h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* gallery layout */
+.cats-page .gallery {
+  display: flex;
+  gap: 30px;
+}
+
+.cats-page .card {
+  background: #fff;
+  border: 1px solid #979797;
+  text-align: center;
+  width: 220px;
+}
+
+.cats-page .card img {
+  width: 100%;
+  height: 200px;       
+  object-fit: cover;  
+  display: block;
+}
+
+.cats-page .card p {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.cats-page .back-link {
+  margin-top: 20px;
+}
+
+.cats-page .back-link a {
+  color: purple;
+  text-decoration: underline;
+}

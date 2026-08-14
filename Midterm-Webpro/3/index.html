@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>ตารางสรุปการเงินพนักงาน</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .btn-edit {
+      background-color: #ff9800;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .btn-edit:hover {
+      background-color: #e68a00;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>รายงานสรุปการเงินและเงินคงเหลือ</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>ชื่อ - นามสกุล</th>
+        <th>อายุ</th>
+        <th>เงินเดือน</th>
+        <th>เงินเก็บ</th>
+        <th>หนี้สิน</th>
+        <th>เงินคงเหลือ</th>
+        <th>จัดการ</th>
+      </tr>
+    </thead>
+    <tbody id="tb">
+      <!-- ข้อมูล DOM จะถูกสร้างมาต่อตรงนี้ -->
+    </tbody>
+  </table>
+
+  <script>
+    function info(data) {
+      let tb = document.getElementById("tb");
+
+      data.infodata.forEach(function(item) {
+        let tr = document.createElement("tr");
+
+        // 1. ID
+        let tdId = document.createElement("td");
+        tdId.appendChild(document.createTextNode(item.id));
+        tr.appendChild(tdId);
+
+        // 2. ชื่อ - นามสกุล
+        let tdName = document.createElement("td");
+        tdName.appendChild(document.createTextNode(item.name + " " + item.surname));
+        tr.appendChild(tdName);
+
+        // 3. อายุ
+        let tdAge = document.createElement("td");
+        tdAge.appendChild(document.createTextNode(item.age));
+        tr.appendChild(tdAge);
+
+        // 4. เงินเดือน
+        let tdSalary = document.createElement("td");
+        let txtSalary = document.createTextNode(item.salary.toLocaleString());
+        tdSalary.appendChild(txtSalary);
+        tr.appendChild(tdSalary);
+
+        // 5. เงินเก็บ
+        let tdSavings = document.createElement("td");
+        let txtSavings = document.createTextNode(item.savings.toLocaleString());
+        tdSavings.appendChild(txtSavings);
+        tr.appendChild(tdSavings);
+
+        // 6. หนี้สิน
+        let tdDebt = document.createElement("td");
+        let txtDebt = document.createTextNode(item.debt.toLocaleString());
+        tdDebt.appendChild(txtDebt);
+        tr.appendChild(tdDebt);
+
+        // 7. เงินคงเหลือ = (เงินเดือน + เงินเก็บ) - หนี้สิน
+        let tdBalance = document.createElement("td");
+        let balance = (item.salary + item.savings) - item.debt;
+        let txtBalance = document.createTextNode(balance.toLocaleString());
+        tdBalance.appendChild(txtBalance);
+        tr.appendChild(tdBalance);
+
+        // 8. ปุ่มแก้ไข
+        let tdAction = document.createElement("td");
+        let editBtn = document.createElement("button");
+        editBtn.className = "btn-edit";
+        editBtn.appendChild(document.createTextNode("แก้ไข"));
+
+        // เหตุการณ์เมื่อกดปุ่มแก้ไข
+        editBtn.onclick = function() {
+          let newSalary = prompt("แก้ไขเงินเดือน:", item.salary);
+          let newSavings = prompt("แก้ไขเงินเก็บ:", item.savings);
+          let newDebt = prompt("แก้ไขหนี้สิน:", item.debt);
+
+          // ตรวจสอบว่าผู้ใช้ไม่ได้กด Cancel
+          if (newSalary !== null && newSavings !== null && newDebt !== null) {
+            item.salary = Number(newSalary);
+            item.savings = Number(newSavings);
+            item.debt = Number(newDebt);
+
+            // คำนวณเงินคงเหลือใหม่
+            let newBalance = (item.salary + item.savings) - item.debt;
+
+            // อัปเดตข้อความใน DOM Node โดยตรง
+            txtSalary.nodeValue = item.salary.toLocaleString();
+            txtSavings.nodeValue = item.savings.toLocaleString();
+            txtDebt.nodeValue = item.debt.toLocaleString();
+            txtBalance.nodeValue = newBalance.toLocaleString();
+          }
+        };
+
+        tdAction.appendChild(editBtn);
+        tr.appendChild(tdAction);
+
+        tb.appendChild(tr);
+      });
+    }
+
+    // เรียกดึงข้อมูลด้วย fetch
+    fetch('finance.json')
+      .then(response => response.json())
+      .then(info)
+      .catch(error => console.log('error', error));
+  </script>
+
+</body>
+</html>

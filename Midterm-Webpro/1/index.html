@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>ตารางรายงานค่าคอมมิชชั่น</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>รายงานค่าคอมมิชชั่นพนักงาน</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>ชื่อ - นามสกุล</th>
+        <th>เพศ</th>
+        <th>อายุ</th>
+        <th style="width: 40%;">ค่าคอมมิชชั่น (%)</th>
+      </tr>
+    </thead>
+    <tbody id="tb">
+      <!-- ข้อมูลจาก fetch จะถูกสร้างด้วย DOM มาใส่อยู่ตรงนี้ -->
+    </tbody>
+  </table>
+
+  <script>
+    // 1. fetch ดึงไฟล์ data.json
+    function info(data) {
+        let tb = document.getElementById("tb");
+
+        // 2. วนลูปด้วย forEach
+        data.forEach(function(item) {
+          let tr = document.createElement("tr");
+
+          // สร้าง td 1: ID
+          let tdId = document.createElement("td");
+          tdId.appendChild(document.createTextNode(item.id));
+          tr.appendChild(tdId);
+
+          // สร้าง td 2: ชื่อ - นามสกุล
+          let tdName = document.createElement("td");
+          tdName.appendChild(document.createTextNode(item.firstName + " " + item.lastName));
+          tr.appendChild(tdName);
+
+          // สร้าง td 3: เพศ
+          let tdGender = document.createElement("td");
+          tdGender.appendChild(document.createTextNode(item.gender));
+          tr.appendChild(tdGender);
+
+          // สร้าง td 4: อายุ
+          let tdAge = document.createElement("td");
+          tdAge.appendChild(document.createTextNode(item.age));
+          tr.appendChild(tdAge);
+
+          // สร้าง td 5: Bar ค่าคอมมิชชั่น
+          let tdComm = document.createElement("td");
+
+          // กรอบนอกของ Bar (ใช้ Inline CSS)
+          let bgBar = document.createElement("div");
+          bgBar.setAttribute("style", "background-color: #e0e0e0; width: 100%; height: 20px; border-radius: 10px; overflow: hidden;");
+
+          // เลือกสีหลอดตาม %
+          let barColor = "green";
+          if (item.commission < 50) {
+            barColor = "orange";
+          }
+
+          // ตัวหลอด Bar สีด้านใน (ใช้ Inline CSS)
+          let colorBar = document.createElement("div");
+          colorBar.setAttribute("style", "width: " + item.commission + "%; background-color: " + barColor + "; height: 100%; text-align: center; color: white; font-size: 12px; line-height: 20px;");
+          colorBar.appendChild(document.createTextNode(item.commission + "%"));
+
+          // ประกอบส่วน Bar เข้าด้วยกัน
+          bgBar.appendChild(colorBar);
+          tdComm.appendChild(bgBar);
+          tr.appendChild(tdComm);
+
+          // นำ tr ไปต่อลงใน tbody (tb)
+          tb.appendChild(tr);
+        });
+      };
+
+        fetch('data.json')
+        .then(response => response.json())
+        .then(data => info(data))
+            .catch(error => console.log('error', error));
+  </script>
+
+</body>
+</html>

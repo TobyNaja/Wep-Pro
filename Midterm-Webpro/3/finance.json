@@ -1,0 +1,49 @@
+{
+    "infodata": [
+        {
+            "id": 1,
+            "name": "สมชาย",
+            "surname": "ใจดี",
+            "age": 28,
+            "salary": 30000,
+            "savings": 50000,
+            "debt": 15000
+        },
+        {
+            "id": 2,
+            "name": "สมหญิง",
+            "surname": "รักเรียน",
+            "age": 25,
+            "salary": 25000,
+            "savings": 20000,
+            "debt": 5000
+        },
+        {
+            "id": 3,
+            "name": "กิตติ",
+            "surname": "มั่นคง",
+            "age": 35,
+            "salary": 45000,
+            "savings": 100000,
+            "debt": 30000
+        },
+        {
+            "id": 4,
+            "name": "อารียา",
+            "surname": "สุขใจ",
+            "age": 30,
+            "salary": 32000,
+            "savings": 40000,
+            "debt": 12000
+        },
+        {
+            "id": 5,
+            "name": "ชานนท์",
+            "surname": "ยอดเยี่ยม",
+            "age": 29,
+            "salary": 28000,
+            "savings": 15000,
+            "debt": 8000
+        }
+    ]
+}

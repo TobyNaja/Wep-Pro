@@ -1,0 +1,266 @@
+[
+    {
+        "id": 101,
+        "prefix": "นาย",
+        "firstName": "สมชาย",
+        "lastName": "ใจดี",
+        "gender": "Male",
+        "age": 18,
+        "subjects": [
+            {
+                "name": "คณิตศาสตร์",
+                "score": 85
+            },
+            {
+                "name": "วิทยาศาสตร์",
+                "score": 78
+            },
+            {
+                "name": "ภาษาอังกฤษ",
+                "score": 92
+            }
+        ]
+    },
+    {
+        "id": 102,
+        "prefix": "นางสาว",
+        "firstName": "สมหญิง",
+        "lastName": "รักเรียน",
+        "gender": "Female",
+        "age": 17,
+        "subjects": [
+            {
+                "name": "คณิตศาสตร์",
+                "score": 65
+            },
+            {
+                "name": "วิทยาศาสตร์",
+                "score": 88
+            },
+            {
+                "name": "ภาษาอังกฤษ",
+                "score": 95
+            }
+        ]
+    },
+    {
+        "id": 103,
+        "prefix": "นาย",
+        "firstName": "กิตติ",
+        "lastName": "พัฒนากุล",
+        "gender": "Male",
+        "age": 18,
+        "subjects": [
+            {
+                "name": "คณิตศาสตร์",
+                "score": 90
+            },
+            {
+                "name": "วิทยาศาสตร์",
+                "score": 84
+            },
+            {
+                "name": "ภาษาอังกฤษ",
+                "score": 76
+            }
+        ]
+    },
+    {
+        "id": 104,
+        "prefix": "นางสาว",
+        "firstName": "พิมพ์ชนก",
+        "lastName": "แสงทอง",
+        "gender": "Female",
+        "age": 17,
+        "subjects": [
+            {
+                "name": "คณิตศาสตร์",
+                "score": 82
+            },
+            {
+                "name": "วิทยาศาสตร์",
+                "score": 91
+            },
+            {
+                "name": "ภาษาอังกฤษ",
+                "score": 89
+            }
+        ]
+    },
+    {
+        "id": 105,
+        "prefix": "นาย",
+        "firstName": "ธนกร",
+        "lastName": "วงศ์ดี",
+        "gender": "Male",
+        "age": 18,
+        "subjects": [
+            {
+                "name": "คณิตศาสตร์",
+                "score": 72
+            },
+            {
+                "name": "วิทยาศาสตร์",
+                "score": 80
+            },
+            {
+                "name": "ภาษาอังกฤษ",
+                "score": 85
+            }
+        ]
+    },
+    {
+        "id": 106,
+        "prefix": "นางสาว",
+        "firstName": "ณัฐชา",
+        "lastName": "มีสุข",
+        "gender": "Female",
+        "age": 18,
+        "subjects": [
+            {
+                "name": "คณิตศาสตร์",
+                "score": 95
+            },
+            {
+                "name": "วิทยาศาสตร์",
+                "score": 93
+            },
+            {
+                "name": "ภาษาอังกฤษ",
+                "score": 90
+            }
+        ]
+    },
+    {
+        "id": 107,
+        "prefix": "นาย",
+        "firstName": "ภาคิน",
+        "lastName": "ศรีสวัสดิ์",
+        "gender": "Male",
+        "age": 17,
+        "subjects": [
+            {
+                "name": "คณิตศาสตร์",
+                "score": 68
+            },
+            {
+                "name": "วิทยาศาสตร์",
+                "score": 75
+            },
+            {
+                "name": "ภาษาอังกฤษ",
+                "score": 81
+            }
+        ]
+    },
+    {
+        "id": 108,
+        "prefix": "นางสาว",
+        "firstName": "ชลธิชา",
+        "lastName": "บุญมี",
+        "gender": "Female",
+        "age": 17,
+        "subjects": [
+            {
+                "name": "คณิตศาสตร์",
+                "score": 88
+            },
+            {
+                "name": "วิทยาศาสตร์",
+                "score": 86
+            },
+            {
+                "name": "ภาษาอังกฤษ",
+                "score": 94
+            }
+        ]
+    },
+    {
+        "id": 109,
+        "prefix": "นาย",
+        "firstName": "วรพล",
+        "lastName": "เจริญสุข",
+        "gender": "Male",
+        "age": 18,
+        "subjects": [
+            {
+                "name": "คณิตศาสตร์",
+                "score": 79
+            },
+            {
+                "name": "วิทยาศาสตร์",
+                "score": 87
+            },
+            {
+                "name": "ภาษาอังกฤษ",
+                "score": 73
+            }
+        ]
+    },
+    {
+        "id": 110,
+        "prefix": "นางสาว",
+        "firstName": "อรปรียา",
+        "lastName": "ใจงาม",
+        "gender": "Female",
+        "age": 18,
+        "subjects": [
+            {
+                "name": "คณิตศาสตร์",
+                "score": 91
+            },
+            {
+                "name": "วิทยาศาสตร์",
+                "score": 89
+            },
+            {
+                "name": "ภาษาอังกฤษ",
+                "score": 96
+            }
+        ]
+    },
+    {
+        "id": 111,
+        "prefix": "นาย",
+        "firstName": "ศุภกร",
+        "lastName": "ทองดี",
+        "gender": "Male",
+        "age": 17,
+        "subjects": [
+            {
+                "name": "คณิตศาสตร์",
+                "score": 83
+            },
+            {
+                "name": "วิทยาศาสตร์",
+                "score": 77
+            },
+            {
+                "name": "ภาษาอังกฤษ",
+                "score": 88
+            }
+        ]
+    },
+    {
+        "id": 112,
+        "prefix": "นางสาว",
+        "firstName": "มินตรา",
+        "lastName": "รัตนชัย",
+        "gender": "Female",
+        "age": 18,
+        "subjects": [
+            {
+                "name": "คณิตศาสตร์",
+                "score": 74
+            },
+            {
+                "name": "วิทยาศาสตร์",
+                "score": 92
+            },
+            {
+                "name": "ภาษาอังกฤษ",
+                "score": 87
+            }
+        ]
+    }
+]

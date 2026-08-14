@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ระบบแสดงการ์ดข้อมูลนักเรียน</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background-color: #f4f6f9;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .card-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .card-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: center; /* จัดให้รูปภาพและข้อความอยู่ตรงกลาง */
+    }
+
+    /* สไตล์รูปโปรไฟล์ */
+    .profile-img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      margin: 5px 0;
+      color: #333;
+    }
+
+    .card p {
+      margin: 5px 0;
+      color: #666;
+    }
+
+    .subject-list {
+      margin-top: 10px;
+      padding-left: 0;
+      list-style-type: none; /* ปิดจุด bullet ปรับให้อ่านง่าย */
+      text-align: left; /* รายการวิชาให้ชิดซ้าย */
+    }
+
+    .subject-list li {
+      margin-bottom: 4px;
+      padding: 4px 8px;
+      background-color: #f9f9f9;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>รายชื่อและคะแนนสอบนักเรียน</h2>
+
+  <div id="card-container" class="card-container"></div>
+
+  <script>
+    function info(data) {
+      let container = document.getElementById("card-container");
+
+      data.forEach(function(student) {
+        let card = document.createElement("div");
+        card.className = "card";
+
+        // 1. สร้างแท็ก <img> แสดงรูปตามเพศ
+        let img = document.createElement("img");
+        // ดึงจากโฟลเดอร์ images/ ตามด้วยค่า gender เช่น images/Male.png หรือ images/Female.png
+        img.src = "images/" + student.gender + ".png"; 
+        img.alt = student.gender;
+        img.className = "profile-img";
+        card.appendChild(img);
+
+        // 2. ชื่อ - นามสกุล
+        let h3 = document.createElement("h3");
+        let nameText = student.prefix + student.firstName + " " + student.lastName;
+        h3.appendChild(document.createTextNode(nameText));
+        card.appendChild(h3);
+
+        // 3. ข้อมูล ID และ อายุ
+        let pInfo = document.createElement("p");
+        let infoText = "ID: " + student.id + " | อายุ: " + student.age + " ปี";
+        pInfo.appendChild(document.createTextNode(infoText));
+        card.appendChild(pInfo);
+
+        // 4. หัวข้อวิชา
+        let pSubjectTitle = document.createElement("p");
+        pSubjectTitle.style.textAlign = "left";
+        let strong = document.createElement("strong");
+        strong.appendChild(document.createTextNode("คะแนนรายวิชา:"));
+        pSubjectTitle.appendChild(strong);
+        card.appendChild(pSubjectTitle);
+
+        // 5. รายการวิชา (Nested Loop)
+        let ul = document.createElement("ul");
+        ul.className = "subject-list";
+
+        student.subjects.forEach(function(sub) {
+          let li = document.createElement("li");
+          let subText = sub.name + ": " + sub.score + " คะแนน";
+          li.appendChild(document.createTextNode(subText));
+          ul.appendChild(li);
+        });
+
+        card.appendChild(ul);
+        container.appendChild(card);
+      });
+    }
+
+    fetch('students.json')
+      .then(response => response.json())
+      .then(info)
+      .catch(error => console.log('error', error));
+  </script>
+
+</body>
+</html>
